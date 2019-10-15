@@ -1,3 +1,4 @@
+import 'package:dog_source/screen/home/HomePage.dart';
 import 'package:dog_source/service/LoginService.dart';
 import 'package:flutter/material.dart';
 import 'package:dog_source/screen/PageBase.dart';
@@ -109,7 +110,7 @@ class _LoginPageState extends State<LoginPage>{
                         _showDialog(context);
                          await _service.getAccess(_userForm, _passwordForm)
                          .then((onValue){
-                           print('Login OKKK');
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
                          })
                          .catchError((onError){
                             _showAlertDialog1(context);

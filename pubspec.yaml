@@ -25,6 +25,8 @@ dependencies:
   cupertino_icons: ^0.1.2
 
   http: ^0.12.0+2
+  shared_preferences: ^0.5.3+4
+  uuid: ^2.0.2
 
 dev_dependencies:
   flutter_test:
@@ -47,6 +49,9 @@ flutter:
    - assets/images/logo.png
    - assets/images/bone.png
    - assets/images/fb-icon.png
+   - assets/images/app-logo.png
+   - assets/images/user-picture.png
+   - assets/images/post-picture-001.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -1,19 +1,19 @@
+import 'package:dog_source/model/PostModel.dart';
+import 'package:dog_source/service/PostService.dart';
 import 'package:dog_source/util/SharedPreferences.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
-
-  @override
-  void createdS() {
-  }
+  final _service = PostService();
+  var _posts = new List<PostModel>();
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: SharedPreferences.getToken(),
+      future: _service.getPostList(),
       builder: (BuildContext context, AsyncSnapshot snapshot){
         if (snapshot.connectionState == ConnectionState.done && snapshot.hasData != null) {
-          print('OAK:::: ${snapshot.data}');
+          _posts = snapshot.data;
           return Scaffold(
               appBar: AppBar(
                 backgroundColor: Colors.white,
@@ -48,14 +48,11 @@ class HomePage extends StatelessWidget {
               ),
               body: Container(
                 color: Color(0xFFF2F3F6),
-                child: ListView(
-                  children: <Widget>[
-                    cardItem(),
-                    cardItem(),
-                    cardItem(),
-                    cardItem(),
-                    cardItem(),
-                  ],
+                child: ListView.builder(
+                  itemCount: _posts.length,
+                  itemBuilder: (context, index){
+                    return cardItem(_posts[index]);
+                  },
                 ),
               ),
             );
@@ -67,18 +64,18 @@ class HomePage extends StatelessWidget {
   }
 }
 
-Widget cardItem() {
+Widget cardItem(PostModel postModel) {
   return Card(
     child: Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        const ListTile(
+         ListTile(
           leading: CircleAvatar(
             backgroundImage: NetworkImage(
-                "https://baltaio.blob.core.windows.net/student-images/1edd5c50-bae9-11e8-8eb4-39de303632c1.jpg"),
+                "https://avatars2.githubusercontent.com/u/7751404?s=400&v=4"),
           ),
-          title: Text("Bruce Wayne"),
-          subtitle: Text("09/05/2019 18:37"),
+          title: Text('${postModel.user}'),
+          subtitle: Text('${postModel.dateTime}'),
           trailing: Icon(Icons.more_vert),
         ),
         Container(
@@ -86,8 +83,7 @@ Widget cardItem() {
         ),
         Container(
           padding: EdgeInsets.all(10),
-          child: Text(
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas quis ex sem. Praesent elit dui, iaculis at interdum eu, rutrum et mi. "),
+          child: Text('${postModel.caption}'),
         ),
         ButtonTheme.bar(
           child: ButtonBar(
@@ -106,4 +102,8 @@ Widget cardItem() {
       ],
     ),
   );
+
+  Widget getText(String x){
+    return Text(x);
+  }
 }

@@ -102,8 +102,4 @@ Widget cardItem(PostModel postModel) {
       ],
     ),
   );
-
-  Widget getText(String x){
-    return Text(x);
-  }
 }
